@@ -1,4 +1,4 @@
-namespace BookApi.Models
+namespace BookApi.Core
 {
     public class BookCreateDto
     {

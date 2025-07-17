@@ -1,20 +1,14 @@
-using BookApi.Models;
-using BookApi.Services;
+using BookApi.Core;
+using BookApi.Core.Interfaces;
 using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
 
-namespace BookApi.Controllers
+namespace BookApi.WebApi.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class BooksController : ControllerBase
+    public class BooksController(IBookService bookService) : ControllerBase
     {
-        private readonly BookService _bookService;
-
-        public BooksController(BookService bookService)
-        {
-            _bookService = bookService;
-        }
+        private readonly IBookService _bookService = bookService;
 
         [HttpGet]
         public ActionResult<List<Book>> Get() => _bookService.Get();

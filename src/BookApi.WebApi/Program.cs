@@ -2,7 +2,11 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllers();
-builder.Services.AddSingleton<BookApi.Services.BookService>();
+
+// Register services
+builder.Services.AddSingleton<BookApi.Core.Interfaces.IBookRepository, BookApi.Data.MongoBookRepository>();
+builder.Services.AddScoped<BookApi.Core.Interfaces.IBookService, BookApi.Services.BookService>();
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 

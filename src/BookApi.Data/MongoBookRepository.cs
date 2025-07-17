@@ -1,14 +1,15 @@
-using BookApi.Models;
+﻿using BookApi.Core;
+using BookApi.Core.Interfaces;
 using MongoDB.Driver;
-using System.Collections.Generic;
+using Microsoft.Extensions.Configuration;
 
-namespace BookApi.Services
+namespace BookApi.Data
 {
-    public class BookService
+    public class MongoBookRepository : IBookRepository
     {
         private readonly IMongoCollection<Book> _books;
 
-        public BookService(IConfiguration config)
+        public MongoBookRepository(IConfiguration config)
         {
             var client = new MongoClient(config.GetConnectionString("BookStoreDb"));
             var database = client.GetDatabase("BookStoreDb");
@@ -16,7 +17,7 @@ namespace BookApi.Services
         }
 
         public List<Book> Get() => _books.Find(book => true).ToList();
-        public Book Get(string id) => _books.Find<Book>(book => book.Id == id).FirstOrDefault();
+        public Book? Get(string id) => _books.Find<Book>(book => book.Id == id).FirstOrDefault();
         public Book Create(Book book)
         {
             _books.InsertOne(book);

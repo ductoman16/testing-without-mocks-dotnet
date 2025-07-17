@@ -2,7 +2,7 @@ using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 
-namespace BookApi.Models
+namespace BookApi.Core
 {
     public class Book
     {
